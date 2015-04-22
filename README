@@ -1,0 +1,28 @@
+Lab08
+Sage Jenson, Paul Buser, Elizabeth Bentivegna
+
+Encode functions:
+
+void char_count(int* frequencies, FILE* source);
+Reads through file and updates letter frequencies (an array of size 256) from source file.
+
+node* list_maker(int* frequencies);
+Takes in frequencies array, and creates linked list elements;
+
+void tree_maker(node* linkedList);
+Sorts the tree in place.
+
+node* dictionary_maker(char** dictionary);
+Takes in a tree, outputs an array of the representation of each of the characters in the file.
+
+char* tree_to_str(node* root);
+Takes in a tree and returns binary representation of the tree.
+
+
+Decode functions:
+
+void str_to_tree(FILE* source);
+Decodes the tree from the source file. Creates said tree.
+
+void tree_lookup(char cur);
+Takes stream from source file and writes to decoded file.
