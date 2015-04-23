@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void char_count(int* frequencies, FILE* source) {
     int current_char;
