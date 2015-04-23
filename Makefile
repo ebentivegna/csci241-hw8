@@ -6,9 +6,8 @@ TARGETS = encode
 
 all: $(TARGETS)
 
-
 encode: encode.c encode.h
-	$(CC) $(CFLAGS) -c encode.c -o encode
+	$(CC) $(CFLAGS) -o encode encode.c
 
 clean:
 	rm -f $(TARGETS)
