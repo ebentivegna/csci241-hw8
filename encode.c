@@ -16,6 +16,9 @@ void char_count(int* frequencies, FILE* source) {
 
 int main() {
     int frequencies[256];
+    for (int i=0; i<256; i++) {
+        frequencies[i] = 0;
+    }
     char_count(frequencies, stdin);
     for (int i = 0; i < 256; i++) {
         printf("%c: %d\n", i, frequencies[i]);
