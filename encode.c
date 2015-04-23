@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define ASCII_LEN 256
 
 void char_count(int* frequencies, FILE* source) {
     int current_char;
@@ -16,12 +17,12 @@ void char_count(int* frequencies, FILE* source) {
 
 
 int main() {
-    int frequencies[256];
-    for (int i=0; i<256; i++) {
+    int frequencies[ASCII_LEN];
+    for (int i=0; i<ASCII_LEN; i++) {
         frequencies[i] = 0;
     }
     char_count(frequencies, stdin);
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < ASCII_LEN; i++) {
         printf("%c: %d\n", i, frequencies[i]);
     }
     return 0;
