@@ -6,4 +6,6 @@
 void char_count(int* frequencies, FILE* source);
 // Takes in frequencies array, and creates linked list elements;
 Node* list_maker(int* frequencies);
+// Prints a linked list, given its head
+void print_list(Node* head) {
 #endif // ENCODE_H
