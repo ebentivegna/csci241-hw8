@@ -38,24 +38,32 @@ Node* list_maker(int* frequencies) {
 	//go thru frequency list and make linked list in order of frequency count
 	for (int i = 0; i < ASCII_LEN; i++) {
         // Create node for the element we're adding
-	    Node* new_node = malloc(sizeof(Node));
-	    new_node->char_val = i;
-	    new_node->frequency = frequencies[i];
-	    new_node->left = NULL;
-	    new_node->right = NULL;
-	    new_node->next = NULL;
-	    head = add_node(new_node, head);
+	    if (frequencies[i] > 0) {
+		Node* new_node = malloc(sizeof(Node));
+		new_node->char_val = i;
+		new_node->frequency = frequencies[i];
+		new_node->left = NULL;
+		new_node->right = NULL;
+		new_node->next = NULL;
+		head = add_node(new_node, head);
+	    }
 	}
     return head;
 }
 
+/* adds a node to the linked list
+ * @param: new_node - the node to add
+ * @param head - the head of the linked list
+ * @return: the new head of the linked list
+ */
 Node* add_node(Node* new_node, Node* head) {
-    if (new_node->frequency > head->frequency) {
-	    while (NULL != head->next && new_node->frequency > head->next->frequency) {
-		head = head->next;
+    Node* current = head;
+    if (new_node->frequency > current->frequency) {
+	    while (NULL != current->next && new_node->frequency > current->next->frequency) {
+		current = current->next;
 	    }
-	    new_node->next = head->next;
-	    head->next = new_node;
+	    new_node->next = current->next;
+	    current->next = new_node;
 	} else {
 	    new_node->next = head;
 	    head = new_node;
@@ -63,6 +71,29 @@ Node* add_node(Node* new_node, Node* head) {
     return head;
 }
 
+Node* tree_maker(Node* head) {
+    Node *left, *right;
+    while (NULL != head->next) {
+	left = head;
+	right = head->next;
+	Node* new_node = malloc(sizeof(Node));
+	new_node->left = left;
+	new_node->right = right;
+	new_node->next = NULL;
+	new_node-> char_val = 0;
+	new_node-> frequency = left->frequency + right->frequency;
+	head = head->next->next;
+	// If head is null, our new node is the root
+	if (NULL == head) {
+	    return new_node;
+	} else {
+	    head = add_node(new_node, head);
+	}
+    }
+    return head;
+}
+
+    
 
 
 /* Prints a linked list of Nodes
