@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "node.h"
 #include "encode.h"
 #define ASCII_LEN 256
@@ -94,7 +95,24 @@ Node* tree_maker(Node* head) {
 }
 
     
+/* finds code for each char recursively
+ * @param keys: array of strings of size 256
+ * @param head: head of the list
+ * @param path: originally an empty string, records path to a node recursively
+ */
 
+void dictionary_maker(char** keys, Node* head, char* path){
+    if (NULL != head){
+	if (0 != head->char_val){
+	    *(keys + head->char_val) = strdup(path);
+	    return;
+	}
+	else{
+	    dictionary_maker(keys, head->left, strcat(path, "0"));
+	    dictionary_maker(keys, head->right, strcat(path, "1"));
+	}
+    }
+}
 
 /* Prints a linked list of Nodes
  * @param head: the head of the linked list
