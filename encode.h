@@ -7,5 +7,9 @@ void char_count(int* frequencies, FILE* source);
 // Takes in frequencies array, and creates linked list elements;
 Node* list_maker(int* frequencies);
 // Prints a linked list, given its head
-void print_list(Node* head) {
+void print_list(Node* head);
+// Converts the linked list to a tree.
+void tree_maker(Node* head);
+// Add a node to a linked list (returns the new head)
+Node* add_node(Node* new_node, Node* head);
 #endif // ENCODE_H

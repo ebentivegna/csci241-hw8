@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "node.h"
+#include "encode.h"
 #define ASCII_LEN 256
 
 /* Counts characters from an input stream
@@ -34,7 +35,6 @@ Node* list_maker(int* frequencies) {
 	head->left = NULL;
 	head->right = NULL;
 	head->next = NULL;
-	Node* current = head;
 	//go thru frequency list and make linked list in order of frequency count
 	for (int i = 0; i < ASCII_LEN; i++) {
         // Create node for the element we're adding
@@ -44,23 +44,26 @@ Node* list_maker(int* frequencies) {
 	    new_node->left = NULL;
 	    new_node->right = NULL;
 	    new_node->next = NULL;
-
-	    // Insert our node into the list at the correct position
-	    current = head; // Jump to the beginning of the list
-	    if (new_node->frequency > head->frequency)
-	    {
-		while (NULL != current->next && new_node->frequency > current->next->frequency) {
-		    current = current->next;
-		}
-		new_node->next = current->next;
-		current->next = new_node;
-	    } else {
-		new_node->next = head;
-		head = new_node;
-	    }
+	    head = add_node(new_node, head);
 	}
     return head;
 }
+
+Node* add_node(Node* new_node, Node* head) {
+    if (new_node->frequency > head->frequency) {
+	    while (NULL != head->next && new_node->frequency > head->next->frequency) {
+		head = head->next;
+	    }
+	    new_node->next = head->next;
+	    head->next = new_node;
+	} else {
+	    new_node->next = head;
+	    head = new_node;
+	}
+    return head;
+}
+
+
 
 /* Prints a linked list of Nodes
  * @param head: the head of the linked list
