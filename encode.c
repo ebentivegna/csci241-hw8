@@ -104,9 +104,6 @@ void print_tree(Node* root) {
 	print_tree(root->right);
     }
 }
-	
-
-
 
 /* Prints a linked list of Nodes
  * @param head: the head of the linked list

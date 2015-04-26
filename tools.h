@@ -10,4 +10,6 @@ struct Node {
 typedef struct Node Node;
 // Extra special error-checkin' malloc for the masses!
 void* my_malloc(size_t size);
+// buffer that holds bits until we have at least 8
+unsigned int print_buffer;
 #endif // TOOLS_H
