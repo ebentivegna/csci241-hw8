@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "node.h"
+#include "tools.h"
 #include "encode.h"
 #define ASCII_LEN 256
 
@@ -93,7 +93,19 @@ Node* tree_maker(Node* head) {
     return head;
 }
 
-    
+// Takes in a tree and returns binary representation of the tree.
+void print_tree(Node* root) {
+    if (NULL == root->left && NULL == root->right) {
+	printf("%c", '1');
+	printf("%c", root->char_val);
+    } else {
+	printf("%c", '0');
+	print_tree(root->left);
+	print_tree(root->right);
+    }
+}
+	
+
 
 
 /* Prints a linked list of Nodes
@@ -116,6 +128,8 @@ int main() {
     char_count(frequencies, stdin);
     Node* sorted_list = list_maker(frequencies);
     print_list(sorted_list);
+    Node* tree = tree_maker(sorted_list);
+    print_tree(tree);
     return 0;
 }
 
