@@ -7,7 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "node.h"
+#include "tools.h"
+#include "encode.h"
+#define ASCII_LEN 256
 #include "encode.h"
 #define ASCII_LEN 256
 
@@ -109,8 +111,8 @@ void dictionary_maker(char** keys, Node* head, char* path){
 	}
 	else{
 	    dictionary_maker(keys, head->left, strcat(path, "0"));
-	    dictionary_maker(keys, head->right, strcat(path, "1"));
-	}
+	print_tree(root->right);
+>>>>>>> dac731e863d00684bf3962ed05d74d8fa9830390
     }
 }
 
@@ -134,6 +136,8 @@ int main() {
     char_count(frequencies, stdin);
     Node* sorted_list = list_maker(frequencies);
     print_list(sorted_list);
+    Node* tree = tree_maker(sorted_list);
+    print_tree(tree);
     return 0;
 }
 
