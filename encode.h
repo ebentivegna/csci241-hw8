@@ -12,4 +12,6 @@ void print_list(Node* head);
 Node* tree_maker(Node* head);
 // Add a node to a linked list (returns the new head)
 Node* add_node(Node* new_node, Node* head);
+// Prints the binary representation of a tree
+void print_tree(Node* root);
 #endif // ENCODE_H

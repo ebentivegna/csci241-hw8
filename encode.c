@@ -96,6 +96,18 @@ Node* tree_maker(Node* head) {
     return head;
 }
 
+// Takes in a tree and returns binary representation of the tree.
+void print_tree(Node* root) {
+    if (NULL == root->left && NULL == root->right) {
+	printf("%c", '1');
+	printf("%c", root->char_val);
+    } else {
+	printf("%c", '0');
+	print_tree(root->left);
+	print_tree(root->right);
+    }
+}
+
     
 /* finds code for each char recursively
  * @param keys: array of strings of size 256
@@ -103,17 +115,17 @@ Node* tree_maker(Node* head) {
  * @param path: originally an empty string, records path to a node recursively
  */
 
-void dictionary_maker(char** keys, Node* head, char* path){
-    if (NULL != head){
-	if (0 != head->char_val){
-	    *(keys + head->char_val) = strdup(path);
-	    return;
-	}
-	else{
-	    dictionary_maker(keys, head->left, strcat(path, "0"));
-	print_tree(root->right);
-    }
-}
+//void dictionary_maker(char** keys, Node* head, char* path){
+//    if (NULL != head){
+//	if (0 != head->char_val){
+//	    *(keys + head->char_val) = strdup(path);
+//	    return;
+//	}
+//	else{
+//	    dictionary_maker(keys, head->left, strcat(path, "0"));
+//	    print_tree(root->right);
+//    }
+//}
 
 /* Prints a linked list of Nodes
  * @param head: the head of the linked list
