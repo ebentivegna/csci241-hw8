@@ -1,28 +1,22 @@
 Lab08
-Sage Jenson, Paul Buser, Elizabeth Bentivegna
+1. Sage Jenson, Paul Buser, Elizabeth Bentivegna
+2. encode: encodes a file using huffman coding
+   decode: decoes a file encoded with encode
+   tools.o: common functionality between encode and decode
+3. encode.c / encode.h - source/header for encode
+   decode.c / decode.h - source/header for decode
+   tools.c / tools.h - source/header for common functions
+   README - this file
+   Makefile - the makefile
+4. Bugs: none!
 
-Encode functions:
+5. planning - 1 hour
+   encode - 6 hours : 4hrs/2hrs writing/debugging
+   decode - 3 hours : 1.5hrs/1.5hrs writing/debugging
+   tools - part of encode, maybe 1 hour extra
+   man pages - 15 minutes
+   README - 5 minutes and counting
+   Makefile - 10 minutes
 
-void char_count(int* frequencies, FILE* source);
-Reads through file and updates letter frequencies (an array of size 256) from source file.
-
-node* list_maker(int* frequencies);
-Takes in frequencies array, and creates linked list elements;
-
-void tree_maker(node* linkedList);
-Sorts the tree in place.
-
-node* dictionary_maker(char** dictionary);
-Takes in a tree, outputs an array of the representation of each of the characters in the file.
-
-char* tree_to_str(node* root);
-Takes in a tree and returns binary representation of the tree.
-
-
-Decode functions:
-
-void str_to_tree(FILE* source);
-Decodes the tree from the source file. Creates said tree.
-
-void tree_lookup(char cur);
-Takes stream from source file and writes to decoded file.
+6. We overwrite the ascii character with decimal value 255: ÿ with our EOF character, as shown in the example.
+7. None.
