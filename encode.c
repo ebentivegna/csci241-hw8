@@ -115,15 +115,19 @@ void print_tree(Node* root) {
  * @param path: originally an empty string, records path to a node recursively
  */
 
-void dictionary_maker(char** keys, Node* head, char* path){
+void dictionary_maker(char* keys[ASCII_LEN], Node* head, char path[]){
     if (NULL != head){
 	if (0 != head->char_val){
-	    *(keys + head->char_val) = strdup(path);
+	    keys[head->char_val] = strdup(path);
 	    return;
 	}
 	else{
-	    dictionary_maker(keys, head->left, strcat(path, "0"));
-	    dictionary_maker(keys, head->right, strcat(path, "1"));
+	    strcat(path, "0");
+	    dictionary_maker(keys, head->left, path);
+	    *(path + strlen(path)-1) = '1';
+	    dictionary_maker(keys, head->right, path);
+	    *(path + strlen(path)-1) = '\0';
+	    
 	}
     }
 }
@@ -150,11 +154,20 @@ int main() {
     print_list(sorted_list);
     Node* tree = tree_maker(sorted_list);
     print_tree(tree);
-    char** keys = malloc(256*sizeof(char*));
-    dictionary_maker(keys, tree, "");
-    for (int i=0; i < 256; i++){
-	printf("%d %s", i, *(keys+i));
+
+    char* keys[ASCII_LEN];
+    char path[ASCII_LEN];
+
+    for (int i=0; i < ASCII_LEN; i++){
+	keys[i] = NULL;
     }
-    return 0;
+  /*
+    char** keys = malloc(256*256*sizeof(char));
+    char* path = malloc(256*sizeof(char));
+    */
+    dictionary_maker(keys, tree, path);
+    for (int i=0; i < ASCII_LEN; i++){
+	if (keys[i]) printf("%d %s\n", i, *(keys+i));
+    }
 }
 
