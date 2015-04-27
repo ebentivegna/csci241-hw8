@@ -1,0 +1,27 @@
+.\" man page for the decode function
+.\" Sage Jenson, Elizabeth Bentivegna, Paul Buser
+
+.TH encode 1 "27 April 2015" "CSCI 241" "Oberlin College"
+
+.SH NAME
+.B decode
+\- decodes encoded file
+
+.SH SYNOPSIS
+.B decode
+<filename> [optional file to output]
+
+.SH DESCRIPTION
+decode takes in a text file that was made with encode. First reads a tree from the encoded file which has the encryption data for the Huffman encoding. Then reads the rest of the encoded file and outputs to optional file argument or standard out.
+
+.SH OPTIONS
+.IP "<filename>"
+The file to decode.
+.IP "<[optional file to output]>"
+Optional file to output.
+
+.SH AUTHORS
+Sage Jenson, Paul Buser, Elizabeth Bentivegna, (Spring 2015)
+
+.SH BUGS
+None!
