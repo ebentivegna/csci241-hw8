@@ -5,12 +5,11 @@
  */
 
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 #include "tools.h"
-#include "encode.h"
-#define ASCII_LEN 256
 #include "encode.h"
 #define ASCII_LEN 256
 
@@ -34,7 +33,7 @@ Node* list_maker(int* frequencies) {
 
     // Add EOF with frequency 1
 	Node* head = malloc(sizeof(Node));
-	head->char_val = EOF;
+	head->char_val = ASCII_LEN;
 	head->frequency = 1;
 	head->left = NULL;
 	head->right = NULL;
@@ -98,6 +97,17 @@ Node* tree_maker(Node* head) {
 }
 
 // Takes in a tree and returns binary representation of the tree.
+void human_print_tree(Node* root) {
+    if (NULL == root->left && NULL == root->right) {
+	printf("1");
+	printf("%d", root->char_val);
+    } else {
+	printf("0");
+	human_print_tree(root->left);
+	human_print_tree(root->right);
+    }
+}
+// Takes in a tree and returns binary representation of the tree.
 void print_tree(Node* root) {
     if (NULL == root->left && NULL == root->right) {
 	print_bit(1);
@@ -116,11 +126,13 @@ void print_tree(Node* root) {
  * @param path: originally an empty string, records path to a node recursively
  */
 
-void dictionary_maker(char* keys[ASCII_LEN], Node* head, char path[]){
+void dictionary_maker(char* keys[ASCII_LEN + 1], Node* head, char path[]){
     if (NULL != head){
 	if (0 != head->char_val){
 	    keys[head->char_val] = strdup(path);
 	    return;
+	} else if (EOF == head->char_val) {
+	    keys[ASCII_LEN] = strdup(path);
 	}
 	else{
 	    strcat(path, "0");
@@ -145,29 +157,54 @@ void print_list(Node* head) {
     printf("\n");
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     int frequencies[ASCII_LEN];
+    char* keys[ASCII_LEN + 1];
+    char path[ASCII_LEN];
+    FILE *input, *output;
+
+    if (2 != argc && 3 != argc) {
+	printf("usage: lol\n");
+    }
+    errno = 0;
+    input = fopen(argv[1], "r");
+    if (0 != errno) {
+	perror("Couldn't open file for reading\n");
+	exit(EXIT_FAILURE);
+    }
+    if (3 == argc) {
+	errno = 0;
+	output = fopen(argv[2], "w");
+	if (0 != errno) {
+	    perror("Couldn't open file for writing\n");
+	    exit(EXIT_FAILURE);
+	}
+    } else {
+	output = stdout;
+    }
+
+    for (int i=0; i < ASCII_LEN + 1; i++){
+	keys[i] = NULL;
+    }
     for (int i=0; i<ASCII_LEN; i++) {
         frequencies[i] = 0;
     }
-    char_count(frequencies, stdin);
+    char_count(frequencies, input);
     Node* sorted_list = list_maker(frequencies);
-    print_list(sorted_list);
     Node* tree = tree_maker(sorted_list);
-    print_tree(tree);
-
-    char* keys[ASCII_LEN];
-    char path[ASCII_LEN];
-
-    for (int i=0; i < ASCII_LEN; i++){
-	keys[i] = NULL;
-    }
-  /*
-    char** keys = malloc(256*256*sizeof(char));
-    char* path = malloc(256*sizeof(char));
-    */
     dictionary_maker(keys, tree, path);
-    for (int i=0; i < ASCII_LEN; i++){
-	if (keys[i]) printf("%d %s\n", i, *(keys+i));
+//    for (int i=0; i < ASCII_LEN; i++){
+//	if (keys[i]) printf("%d %s\n", i, *(keys+i));
+//    }
+    // print out tree
+    print_tree(tree);
+    // print EOF
+    print_str(keys[ASCII_LEN]);
+    rewind(input);
+    int current_char;
+    while (EOF != (current_char = fgetc(input))) {
+	print_str(keys[current_char]);
     }
+    print_str(keys[ASCII_LEN]);
+    print_and_flush();
 }
