@@ -12,4 +12,9 @@ typedef struct Node Node;
 void* my_malloc(size_t size);
 // buffer that holds bits until we have at least 8
 unsigned int print_buffer;
+// the number of characters we have stored so far in our buffer
+int buffer_index;
+// Prints bits using our buffer
+void print_bit(unsigned int bit);
+void print_and_flush();
 #endif // TOOLS_H
