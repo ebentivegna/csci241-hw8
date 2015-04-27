@@ -12,5 +12,4 @@ Node * build_tree( FILE* input );
 int buffer_len = 0;		//amount of bits in our buffer
 int buffer = 0;			//buffer to store the bits we are reading
 int read_char_in_tree(FILE* input, Node* root);
-int is_leaf(Node* node);
 #endif // DECODE_H

@@ -144,7 +144,7 @@ void print_list(Node* head) {
 int main(int argc, char* argv[]) {
     int frequencies[ASCII_LEN];
     char* keys[ASCII_LEN];
-    char path[ASCII_LEN];
+    char path[ASCII_LEN] = "";
     FILE *input, *output;
 
     if (2 != argc && 3 != argc) {
@@ -192,4 +192,12 @@ int main(int argc, char* argv[]) {
     }
     print_str(keys[FAKE_EOF], output);
     print_and_flush(output);
+
+    free_tree(tree);
+    for (int i=0; i < ASCII_LEN; i++) {
+	if (NULL != keys[i])
+	    free(keys[i]);
+    }
+    fclose(input);
+    fclose(output);
 }

@@ -23,4 +23,7 @@ void print_char(unsigned int c, FILE* output);
 void print_str(const char* str, FILE* output);
 // Prints the binary representation of a tree
 void print_tree(Node* root, FILE* output);
+// Frees the allocated memory of a tree
+void free_tree(Node* root);
+int is_leaf(Node* node);
 #endif // TOOLS_H

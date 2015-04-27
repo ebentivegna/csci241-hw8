@@ -70,13 +70,6 @@ int read_bit( FILE* input ) {
     }
 }
 
-int is_leaf(Node* node) {
-    if (NULL == node->left && NULL == node->right)
-	return 1;
-    else
-	return 0;
-}
-
 int read_char_in_tree(FILE* input, Node* root) {
     Node* cur_node = root;
     int bit;
@@ -114,7 +107,10 @@ int main(int argc, char* argv[]) {
     while (1) {
 	int cur_char = read_char_in_tree(input, root);
 	if (our_eof == cur_char)
-	    exit(EXIT_SUCCESS);
+	    break;
 	fprintf(output, "%c", cur_char);
     }
+    free_tree(root);
+    fclose(input);
+    fclose(output);
 }

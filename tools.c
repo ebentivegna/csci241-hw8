@@ -88,4 +88,19 @@ void print_tree(Node* root, FILE* output) {
     }
 }
 
-    
+int is_leaf(Node* node) {
+    if (NULL == node->left && NULL == node->right)
+	return 1;
+    else
+	return 0;
+}
+
+void free_tree(Node* root) {
+    if (is_leaf(root)) {
+	free(root);
+	return;
+    }
+    free_tree(root->left);
+    free_tree(root->right);
+    free(root);
+}
