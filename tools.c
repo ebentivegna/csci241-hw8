@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <limits.h>
 #include <stdio.h>
 #include <errno.h>
@@ -48,6 +49,22 @@ void print_char(unsigned int c) {
 	    print_bit(0);
 	}
 	mask = mask >> 1;
+    }
+}
+
+/* prints the bits of a string of binary characters
+ * @param str: the binary string to print
+ */
+void print_str(const char* str) {
+    for (int i=0; i < strlen(str); i++) {
+	if ('0' == *(str + i)) {
+	    print_bit(0);
+	} else if ('1' == *(str + i)) {
+	    print_bit(1);
+	} else {
+	    fprintf(stderr, "string %s has non-binary characters!\n", str);
+	    exit(EXIT_FAILURE);
+	}
     }
 }
 

@@ -141,20 +141,24 @@ void print_list(Node* head) {
     printf("\n");
 }
 
+//int main() {
+//    int frequencies[ASCII_LEN];
+//    for (int i=0; i<ASCII_LEN; i++) {
+//        frequencies[i] = 0;
+//    }
+//    char_count(frequencies, stdin);
+//    Node* sorted_list = list_maker(frequencies);
+//    print_list(sorted_list);
+//    Node* tree = tree_maker(sorted_list);
+//    print_tree(tree);
+//    char** keys = malloc(256*sizeof(char*));
+//    dictionary_maker(keys, tree, "");
+//    for (int i=0; i < 256; i++){
+//	printf("%d %s", i, *(keys+i));
+//    }
+//    return 0;
+//}
 int main() {
-    int frequencies[ASCII_LEN];
-    for (int i=0; i<ASCII_LEN; i++) {
-        frequencies[i] = 0;
-    }
-    char_count(frequencies, stdin);
-    Node* sorted_list = list_maker(frequencies);
-    print_list(sorted_list);
-    Node* tree = tree_maker(sorted_list);
-    print_tree(tree);
-    char** keys = malloc(256*sizeof(char*));
-    dictionary_maker(keys, tree, "");
-    for (int i=0; i < 256; i++){
-	printf("%d %s", i, *(keys+i));
-    }
-    return 0;
+    char* capital_a = "01000001";
+    print_str(capital_a);
 }

@@ -18,4 +18,5 @@ int buffer_index;
 void print_bit(unsigned int bit);
 void print_and_flush();
 void print_char(unsigned int c);
+void print_str(const char* str);
 #endif // TOOLS_H
