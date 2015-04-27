@@ -1,0 +1,27 @@
+.\" man page for the encode function
+.\" Sage Jenson, Elizabeth Bentivegna, Paul Buser
+
+.TH encode 1 "27 April 2015" "CSCI 241" "Oberlin College"
+
+.SH NAME
+.B encode
+\- Huffman encodes an input file.
+
+.SH SYNOPSIS
+.B encode
+<file to encode> <optional output file>
+
+.SH DESCRIPTION
+encode takes in a text file and outputs an encoded key that stores the huffman encryption. After that key, the rest of the file is compressed and stored in binary. For use with decode.
+
+.SH OPTIONS
+.IP "<file to encode>"
+The file to encode.
+.IP "<optional output file>
+If no output file is provided, prints to standard out.
+
+.SH AUTHORS
+Sage Jenson, Elizabeth Bentivegna, Paul Buser
+
+.SH BUGS
+None!
