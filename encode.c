@@ -115,17 +115,18 @@ void print_tree(Node* root) {
  * @param path: originally an empty string, records path to a node recursively
  */
 
-//void dictionary_maker(char** keys, Node* head, char* path){
-//    if (NULL != head){
-//	if (0 != head->char_val){
-//	    *(keys + head->char_val) = strdup(path);
-//	    return;
-//	}
-//	else{
-//	    dictionary_maker(keys, head->left, strcat(path, "0"));
-//	    print_tree(root->right);
-//    }
-//}
+void dictionary_maker(char** keys, Node* head, char* path){
+    if (NULL != head){
+	if (0 != head->char_val){
+	    *(keys + head->char_val) = strdup(path);
+	    return;
+	}
+	else{
+	    dictionary_maker(keys, head->left, strcat(path, "0"));
+	    dictionary_maker(keys, head->right, strcat(path, "1"));
+	}
+    }
+}
 
 /* Prints a linked list of Nodes
  * @param head: the head of the linked list
@@ -149,6 +150,11 @@ int main() {
     print_list(sorted_list);
     Node* tree = tree_maker(sorted_list);
     print_tree(tree);
+    char** keys = malloc(256*sizeof(char*));
+    dictionary_maker(keys, tree, "");
+    for (int i=0; i < 256; i++){
+	printf("%d %s", i, *(keys+i));
+    }
     return 0;
 }
 
