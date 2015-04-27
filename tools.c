@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 #include "tools.h"
 
 void* my_malloc(size_t size) {

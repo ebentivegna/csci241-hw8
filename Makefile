@@ -1,4 +1,4 @@
-CC = clang
+CC = gccx
 CFLAGS = -Wall -Wextra -std=c99 -pedantic -O0 -g
 TARGETS = encode tools.o
 
@@ -7,10 +7,10 @@ TARGETS = encode tools.o
 all: $(TARGETS)
 
 encode: encode.c encode.h tools.o
-	$(CC) $(CFLAGS) -o encode encode.c
+	$(CC) $(CFLAGS) -o encode tools.o encode.c
 
 tools.o: tools.c tools.h
-	$(CC) $(CFLAGS) -c -o tools.o tools.c
+	$(CC) $(CFLAGS) -c tools.c
 
 clean:
 	rm -f $(TARGETS)

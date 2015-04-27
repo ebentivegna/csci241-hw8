@@ -112,7 +112,6 @@ void dictionary_maker(char** keys, Node* head, char* path){
 	else{
 	    dictionary_maker(keys, head->left, strcat(path, "0"));
 	print_tree(root->right);
->>>>>>> dac731e863d00684bf3962ed05d74d8fa9830390
     }
 }
 
