@@ -26,7 +26,7 @@ void print_bit(unsigned int bit) {
     }
     // Set the bit at buffer_index (counting from L -> R)
     unsigned int mask = bit ? (1 << (CHAR_BIT-1)) : 0;
-    mask >> buffer_index++;
+    mask = mask >> buffer_index++;
     print_buffer |= mask;
     // If our buffer is full, print and empty it
     if (buffer_index >= CHAR_BIT) {
@@ -47,7 +47,7 @@ void print_char(unsigned int c) {
 	} else {
 	    print_bit(0);
 	}
-	mask >> 1;
+	mask = mask >> 1;
     }
 }
 
