@@ -178,9 +178,6 @@ int main(int argc, char* argv[]) {
     Node* sorted_list = list_maker(frequencies);
     Node* tree = tree_maker(sorted_list);
     dictionary_maker(keys, tree, path);
-//    for (int i=0; i < ASCII_LEN; i++){
-//	if (keys[i]) printf("%d %s\n", i, *(keys+i));
-//    }
     // print out tree
     print_tree(tree, output);
     // print EOF
