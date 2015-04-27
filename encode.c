@@ -24,7 +24,7 @@ void char_count(int* frequencies, FILE* source) {
     }
 }
 
-/* Mallocs and returns a sorted (ascending) linked list of Nodes
+/* my_mallocs and returns a sorted (ascending) linked list of Nodes
  * Includes EOF character with frequency of 1
  * @param frequencies: an array of size 256 representing frequencies of each ASCII character
  * @return the head of the list
@@ -32,7 +32,7 @@ void char_count(int* frequencies, FILE* source) {
 Node* list_maker(int* frequencies) {
 
     // Add EOF with frequency 1
-	Node* head = malloc(sizeof(Node));
+	Node* head = my_malloc(sizeof(Node));
 	head->char_val = ASCII_LEN;
 	head->frequency = 1;
 	head->left = NULL;
@@ -42,7 +42,7 @@ Node* list_maker(int* frequencies) {
 	for (int i = 0; i < ASCII_LEN; i++) {
         // Create node for the element we're adding
 	    if (frequencies[i] > 0) {
-		Node* new_node = malloc(sizeof(Node));
+		Node* new_node = my_malloc(sizeof(Node));
 		new_node->char_val = i;
 		new_node->frequency = frequencies[i];
 		new_node->left = NULL;
@@ -79,7 +79,7 @@ Node* tree_maker(Node* head) {
     while (NULL != head->next) {
 	left = head;
 	right = head->next;
-	Node* new_node = malloc(sizeof(Node));
+	Node* new_node = my_malloc(sizeof(Node));
 	new_node->left = left;
 	new_node->right = right;
 	new_node->next = NULL;
