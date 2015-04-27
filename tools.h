@@ -17,10 +17,10 @@ unsigned int print_buffer;
 // the number of characters we have stored so far in our buffer
 int buffer_index;
 // Prints bits using our buffer
-void print_bit(unsigned int bit);
-void print_and_flush();
-void print_char(unsigned int c);
-void print_str(const char* str);
+void print_bit(unsigned int bit, FILE * output);
+void print_and_flush(FILE * output);
+void print_char(unsigned int c, FILE* output);
+void print_str(const char* str, FILE* output);
 // Prints the binary representation of a tree
-void print_tree(Node* root);
+void print_tree(Node* root, FILE* output);
 #endif // TOOLS_H

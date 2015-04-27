@@ -148,18 +148,19 @@ int main(int argc, char* argv[]) {
     FILE *input, *output;
 
     if (2 != argc && 3 != argc) {
-	printf("usage: lol\n");
+	printf("usage: %s: <filename> [output]\n", argv[0]);
+	exit(EXIT_FAILURE);
     }
     errno = 0;
     input = fopen(argv[1], "r");
-    if (0 != errno) {
+    if (errno) {
 	perror("Couldn't open file for reading\n");
 	exit(EXIT_FAILURE);
     }
     if (3 == argc) {
 	errno = 0;
 	output = fopen(argv[2], "w");
-	if (0 != errno) {
+	if (errno) {
 	    perror("Couldn't open file for writing\n");
 	    exit(EXIT_FAILURE);
 	}
@@ -181,14 +182,14 @@ int main(int argc, char* argv[]) {
 //	if (keys[i]) printf("%d %s\n", i, *(keys+i));
 //    }
     // print out tree
-    print_tree(tree);
+    print_tree(tree, output);
     // print EOF
-    print_str(keys[FAKE_EOF]);
+    print_str(keys[FAKE_EOF], output);
     rewind(input);
     int current_char;
     while (EOF != (current_char = fgetc(input))) {
-	print_str(keys[current_char]);
+	print_str(keys[current_char], output);
     }
-    print_str(keys[FAKE_EOF]);
-    print_and_flush();
+    print_str(keys[FAKE_EOF], output);
+    print_and_flush(output);
 }

@@ -92,13 +92,29 @@ int read_char_in_tree(FILE* input, Node* root) {
 }
 
 int main(int argc, char* argv[]) {
+    if (2 != argc && 3 != argc) {
+	printf("Usage: %s: <filename> [output]\n", argv[0]);
+	exit(EXIT_FAILURE);
+    }
+    errno = 0;
     FILE* input = fopen(argv[1], "r");
+    if (errno) {
+	perror("Couldn't open file for reading");
+    }
+    errno = 0;
+    FILE* output = stdout;
+    if (errno) {
+	perror("Couldn't open file for writing");
+    }
+    if (3 == argc) {
+	output = fopen(argv[2], "w");
+    }
     Node* root = build_tree(input);
     int our_eof = read_char_in_tree(input, root);
     while (1) {
 	int cur_char = read_char_in_tree(input, root);
 	if (our_eof == cur_char)
 	    exit(EXIT_SUCCESS);
-	printf("%c", cur_char);
+	fprintf(output, "%c", cur_char);
     }
 }
