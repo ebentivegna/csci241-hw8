@@ -162,23 +162,6 @@ int main() {
     for (int i=0; i < ASCII_LEN; i++){
 	keys[i] = NULL;
     }
-int main() {
-    int frequencies[ASCII_LEN];
-    for (int i=0; i<ASCII_LEN; i++) {
-        frequencies[i] = 0;
-    }
-    char_count(frequencies, stdin);
-    Node* sorted_list = list_maker(frequencies);
-    print_list(sorted_list);
-    Node* tree = tree_maker(sorted_list);
-    print_tree(tree);
-
-    char* keys[ASCII_LEN];
-    char path[ASCII_LEN];
-
-    for (int i=0; i < ASCII_LEN; i++){
-	keys[i] = NULL;
-    }
   /*
     char** keys = malloc(256*256*sizeof(char));
     char* path = malloc(256*sizeof(char));
