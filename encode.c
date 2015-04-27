@@ -11,7 +11,6 @@
 #include <limits.h>
 #include "tools.h"
 #include "encode.h"
-#define ASCII_LEN 256
 
 /* Counts characters from an input stream
  * @param frequencies: an array of 256 ints, to store the frequency counts
@@ -33,7 +32,7 @@ Node* list_maker(int* frequencies) {
 
     // Add EOF with frequency 1
 	Node* head = my_malloc(sizeof(Node));
-	head->char_val = ASCII_LEN;
+	head->char_val = FAKE_EOF;
 	head->frequency = 1;
 	head->left = NULL;
 	head->right = NULL;
@@ -107,34 +106,19 @@ void human_print_tree(Node* root) {
 	human_print_tree(root->right);
     }
 }
-// Takes in a tree and returns binary representation of the tree.
-void print_tree(Node* root) {
-    if (NULL == root->left && NULL == root->right) {
-	print_bit(1);
-	print_char(root->char_val);
-    } else {
-	print_bit(0);
-	print_tree(root->left);
-	print_tree(root->right);
-    }
-}
 
-    
 /* finds code for each char recursively
  * @param keys: array of strings of size 256
  * @param head: head of the list
  * @param path: originally an empty string, records path to a node recursively
  */
 
-void dictionary_maker(char* keys[ASCII_LEN + 1], Node* head, char path[]){
+void dictionary_maker(char* keys[ASCII_LEN], Node* head, char path[]){
     if (NULL != head){
 	if (0 != head->char_val){
 	    keys[head->char_val] = strdup(path);
 	    return;
-	} else if (EOF == head->char_val) {
-	    keys[ASCII_LEN] = strdup(path);
-	}
-	else{
+	} else {
 	    strcat(path, "0");
 	    dictionary_maker(keys, head->left, path);
 	    *(path + strlen(path)-1) = '1';
@@ -159,7 +143,7 @@ void print_list(Node* head) {
 
 int main(int argc, char* argv[]) {
     int frequencies[ASCII_LEN];
-    char* keys[ASCII_LEN + 1];
+    char* keys[ASCII_LEN];
     char path[ASCII_LEN];
     FILE *input, *output;
 
@@ -199,12 +183,12 @@ int main(int argc, char* argv[]) {
     // print out tree
     print_tree(tree);
     // print EOF
-    print_str(keys[ASCII_LEN]);
+    print_str(keys[FAKE_EOF]);
     rewind(input);
     int current_char;
     while (EOF != (current_char = fgetc(input))) {
 	print_str(keys[current_char]);
     }
-    print_str(keys[ASCII_LEN]);
+    print_str(keys[FAKE_EOF]);
     print_and_flush();
 }

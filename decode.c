@@ -12,22 +12,22 @@
 #include "tools.h"
 #include "decode.h"
 Node* build_tree(FILE* input){
-    int bit = read_bit(FILE* input);
+    int bit = read_bit(input);
     if (bit == EOF){
 	printf("%s\n", "Error: build_tree shouldn't encounter EOF");
     }
     if (bit == 1){
-	char c = read_char();
-	Node* node = malloc(sizeof(Node));
+	char c = read_char(input);
+	Node* node = my_malloc(sizeof(Node));
 	node->left = NULL;
 	node->right = NULL;
 	node->next = NULL;
 	node->char_val = c;
 	return node;
     } else {
-	Node* tree = malloc(sizeof(Node));
-	node->left = build_tree(input);
-	node->right = build_tree(input);
+	Node* tree = my_malloc(sizeof(Node));
+	tree->left = build_tree(input);
+	tree->right = build_tree(input);
 	return tree;
     }
 }
@@ -35,7 +35,9 @@ Node* build_tree(FILE* input){
 char read_char(FILE* input){
     int c = 0;
     for (int i = 0; i < CHAR_BIT; i++){
-	c = (read_bit(input) << (CHAR_BIT - i - 1))||c;
+	int bit = read_bit(input);
+	bit = bit << (CHAR_BIT - i - 1);
+	c |= bit;
     }
     return c;
 }
@@ -68,11 +70,35 @@ int read_bit( FILE* input ) {
     }
 }
 
-int main(int argc, char* argv[]) {
+int is_leaf(Node* node) {
+    if (NULL == node->left && NULL == node->right)
+	return 1;
+    else
+	return 0;
+}
 
-    FILE* input = fopen( argv[1], "r" );
-    int current = 0;
-    for (int i = 0; i < CHAR_BIT; i++) {
-	printf("%d", read_bit(input));
+int read_char_in_tree(FILE* input, Node* root) {
+    Node* cur_node = root;
+    int bit;
+    while (!is_leaf(cur_node)) {
+	bit = read_bit(input);
+	if (0 == bit) {
+	    cur_node = cur_node->left;
+	} else {
+	    cur_node = cur_node->right;
+	}
+    }
+    return cur_node->char_val;
+}
+
+int main(int argc, char* argv[]) {
+    FILE* input = fopen(argv[1], "r");
+    Node* root = build_tree(input);
+    int our_eof = read_char_in_tree(input, root);
+    while (1) {
+	int cur_char = read_char_in_tree(input, root);
+	if (our_eof == cur_char)
+	    exit(EXIT_SUCCESS);
+	printf("%c", cur_char);
     }
 }

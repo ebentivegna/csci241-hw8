@@ -75,3 +75,17 @@ void print_and_flush() {
 	print_bit(0);
     }
 }
+
+// Takes in a tree and returns binary representation of the tree.
+void print_tree(Node* root) {
+    if (NULL == root->left && NULL == root->right) {
+	print_bit(1);
+	print_char(root->char_val);
+    } else {
+	print_bit(0);
+	print_tree(root->left);
+	print_tree(root->right);
+    }
+}
+
+    

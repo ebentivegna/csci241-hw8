@@ -1,5 +1,7 @@
 #ifndef TOOLS_H
 #define TOOLS_H
+#define ASCII_LEN 256
+#define FAKE_EOF (ASCII_LEN - 1)
 struct Node {
     int char_val;
     int frequency;
@@ -19,4 +21,6 @@ void print_bit(unsigned int bit);
 void print_and_flush();
 void print_char(unsigned int c);
 void print_str(const char* str);
+// Prints the binary representation of a tree
+void print_tree(Node* root);
 #endif // TOOLS_H
