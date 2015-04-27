@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <limits.h>
 #include <stdio.h>
 #include <errno.h>
 #include "tools.h"
@@ -24,14 +25,29 @@ void print_bit(unsigned int bit) {
 	exit(EXIT_FAILURE);
     }
     // Set the bit at buffer_index (counting from L -> R)
-    unsigned int mask = bit ? 0x80 : 0x00;
-    bit >> buffer_index++;
-    print_buffer |= bit;
+    unsigned int mask = bit ? (1 << (CHAR_BIT-1)) : 0;
+    mask >> buffer_index++;
+    print_buffer |= mask;
     // If our buffer is full, print and empty it
     if (buffer_index >= CHAR_BIT) {
 	printf("%c", (char)print_buffer);
 	buffer_index = 0;
 	print_buffer = 0;
+    }
+}
+
+/* prints the binary representation of a character
+ * @param c: the character to print
+ */
+void print_char(unsigned int c) {
+    unsigned int mask = (1 << (CHAR_BIT - 1));
+    for (int i=0; i<CHAR_BIT; i++) {
+	if (c & mask) {
+	    print_bit(1);
+	} else {
+	    print_bit(0);
+	}
+	mask >> 1;
     }
 }
 

@@ -17,4 +17,5 @@ int buffer_index;
 // Prints bits using our buffer
 void print_bit(unsigned int bit);
 void print_and_flush();
+void print_char(unsigned int c);
 #endif // TOOLS_H

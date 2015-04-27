@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include "tools.h"
 #include "encode.h"
 #define ASCII_LEN 256
@@ -99,10 +100,10 @@ Node* tree_maker(Node* head) {
 // Takes in a tree and returns binary representation of the tree.
 void print_tree(Node* root) {
     if (NULL == root->left && NULL == root->right) {
-	printf("%c", '1');
-	printf("%c", root->char_val);
+	print_bit(1);
+	print_char(root->char_val);
     } else {
-	printf("%c", '0');
+	print_bit(0);
 	print_tree(root->left);
 	print_tree(root->right);
     }
